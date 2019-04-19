@@ -27,5 +27,6 @@ public class HashMapTest {
         }
 */
         System.out.println(hashMap);
+        new Thread();
     }
 }

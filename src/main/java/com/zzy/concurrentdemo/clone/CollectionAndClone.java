@@ -1,14 +1,18 @@
 package com.zzy.concurrentdemo.clone;
 
 import com.google.common.collect.Lists;
-import org.junit.jupiter.api.Test;
+import com.zzy.concurrentdemo.common.My;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.*;
 
 public class CollectionAndClone {
 
 
-    @Test
+    public static void main(String[] args) {
+        testList();
+    }
+
     public void testCollection() {
         //List<Integer> list = Arrays.asList(1, 2, 3);//不要用这种方式，这种方式生成的是视图
         List<Integer> list = Lists.newArrayList(1, 2, 3);
@@ -27,7 +31,7 @@ public class CollectionAndClone {
         System.out.println(view);
     }
 
-    @Test
+
     public void test2() {
         HashMap<String, My> hashMap1 = new HashMap<>();
         My my = new My(1);
@@ -49,9 +53,11 @@ public class CollectionAndClone {
 
         System.out.println(hashMap1);
         System.out.println(hashMap2);
+
+
     }
 
-    @Test
+
     public void testArraysCopy() {
 
         My my1 = new My(1);
@@ -64,30 +70,26 @@ public class CollectionAndClone {
 
         System.out.println(Arrays.toString(myarr));
         System.out.println(Arrays.toString(copy));
+    }
+
+
+    public static void testList() {
+        My my1 = new My(1);
+        ArrayList<My> list = Lists.newArrayList();
+        list.add(my1);
+
+        ArrayList<My> listClone = Lists.newArrayList(list);
+
+        listClone.get(0).setX(2);
+
+        System.out.println(list);
+        System.out.println(listClone);
+
+
 
     }
+
+
 }
 
 
-class My {
-    private int x;
-
-    My(int x) {
-        this.x = x;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public String toString() {
-        return "My{" +
-                "x=" + x +
-                '}';
-    }
-}
